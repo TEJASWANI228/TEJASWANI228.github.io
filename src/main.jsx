@@ -1,10 +1,10 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { ArrowDown, ArrowDownRight, ArrowRight, ArrowUpRight, Activity, Code2, ExternalLink, Github, Linkedin, Mail, Menu, X, Sparkles, Terminal, GitFork, Star, CalendarDays, ChevronRight } from 'lucide-react';
-import { profile, projects, milestones, focusAreas } from './data';
+import { profile, projects, interests, milestones, focusAreas } from './data';
 import './styles.css';
 
-const filters = ['All work', 'AI / ML', 'Web development'];
+const filters = ['All areas', 'AI / ML', 'Software & Systems', 'Core CS'];
 const isConfigured = (value = '') => value && !value.includes('YOUR_');
 const shortDate = (value) => value ? new Date(value).toLocaleDateString('en', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Recent';
 
@@ -24,7 +24,7 @@ function useReveal() {
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const links = [['About', '#about'], ['Work', '#work'], ['GitHub', '#github'], ['Milestones', '#milestones']];
+  const links = [['About', '#about'], ['Interests', '#work'], ['GitHub', '#github'], ['Milestones', '#milestones']];
   return <header className="site-header">
     <a className="brand" href="#top" aria-label="Back to top"><span className="brand-mark">TY</span><span className="brand-name">TEJASWANI YADAV<span className="brand-dot">.</span></span></a>
     <nav className={`nav-links ${menuOpen ? 'nav-open' : ''}`} aria-label="Main navigation">
@@ -51,9 +51,9 @@ function Hero() {
     <div className="hero-copy">
       <div className="eyebrow hero-eyebrow"><span className="status-dot" /> AVAILABLE FOR COLLABORATION <span className="eyebrow-divider">/</span> INDIA</div>
       <h1>Building at the<br />intersection of <span className="gradient-text">AI</span><br />and software<span className="period">.</span></h1>
-      <p className="hero-intro">I’m {profile.name.split(' ')[0]}, an AIML student exploring intelligent systems and building useful digital experiences.</p>
-      <div className="hero-actions"><a className="button button-primary" href="#work">Explore my work <ArrowDownRight size={17} /></a><a className="text-link" href={profile.resume} target="_blank" rel="noreferrer">View resume <ArrowUpRight size={15} /></a></div>
-      <div className="hero-footnote"><span className="eyebrow">CURRENTLY EXPLORING</span><span>AI systems <i>·</i> Backend <i>·</i> DSA</span></div>
+      <p className="hero-intro">I’m {profile.name.split(' ')[0]}, an AIML student exploring intelligent systems and building strong computer science foundations.</p>
+      <div className="hero-actions"><a className="button button-primary" href="#work">Explore my interests <ArrowDownRight size={17} /></a><a className="text-link" href={profile.resume} target="_blank" rel="noreferrer">View resume <ArrowUpRight size={15} /></a></div>
+      <div className="hero-footnote"><span className="eyebrow">KNOWLEDGE & INTERESTS</span><span>AI / ML <i>·</i> Backend & SQL <i>·</i> DSA</span></div>
     </div>
     <div className="hero-art" aria-label="Abstract glowing blue and violet 3D form" role="img">
       <div className="orb-stage" ref={orbRef}>
@@ -75,19 +75,19 @@ function SectionHeading({ index, label, title, accent }) {
 
 function About() {
   return <section className="section about-section" id="about"><div className="section-inner">
-    <SectionHeading index="01" label="A LITTLE ABOUT ME" title="Curious by nature." accent="Driven to build." />
-    <div className="about-layout"><p className="about-statement reveal">I like understanding how things work — then turning that understanding into <span>something useful.</span></p>
-      <div className="about-details reveal"><p>{profile.intro}</p><p>My current focus is strengthening my computer science fundamentals while learning to build software that is practical, clear, and thoughtfully designed.</p><div className="focus-list">{focusAreas.map((item, i) => <div className="focus-item" key={item}><span>0{i + 1}</span><span>{item}</span><ArrowUpRight size={14} /></div>)}</div></div>
+    <SectionHeading index="01" label="A LITTLE ABOUT ME" title="Curious by nature." accent="Driven to learn." />
+    <div className="about-layout"><p className="about-statement reveal">I like understanding how things work — then turning that knowledge into <span>thoughtful solutions.</span></p>
+      <div className="about-details reveal"><p>{profile.intro}</p><p>My current focus is deepening my knowledge across machine learning, backend systems, and core computer science fundamentals.</p><div className="focus-list">{focusAreas.map((item, i) => <div className="focus-item" key={item}><span>0{i + 1}</span><span>{item}</span><ArrowUpRight size={14} /></div>)}</div></div>
     </div>
-    <div className="about-bottom reveal"><span className="eyebrow">MY APPROACH</span><p>Stay curious. Build consistently. Make the details matter.</p><Sparkles size={17} /></div>
+    <div className="about-bottom reveal"><span className="eyebrow">MY APPROACH</span><p>Stay curious. Learn deeply. Make the fundamentals count.</p><Sparkles size={17} /></div>
   </div></section>;
 }
 
 function ProjectVisual({ project }) {
   return <div className={`project-visual ${project.visual}`} aria-hidden="true">
-    {project.visual === 'visual-health' && <><div className="health-ring ring-1"/><div className="health-ring ring-2"/><div className="health-cross">+</div><div className="visual-caption">CARE / CONNECTED</div></>}
+    {project.visual === 'visual-health' && <><div className="health-ring ring-1"/><div className="health-ring ring-2"/><div className="health-cross">+</div><div className="visual-caption">SYSTEMS / ARCHITECTURE</div></>}
     {project.visual === 'visual-trace' && <><div className="trace-grid"/><div className="trace-node node-1"/><div className="trace-node node-2"/><div className="trace-node node-3"/><div className="trace-link link-1"/><div className="trace-link link-2"/><div className="trace-label">SIGNAL → PATTERN → INSIGHT</div></>}
-    {project.visual === 'visual-travel' && <><div className="travel-sun"/><div className="travel-hill hill-1"/><div className="travel-hill hill-2"/><div className="travel-path"/><div className="visual-caption">COLLECT MOMENTS</div></>}
+    {project.visual === 'visual-travel' && <><div className="travel-sun"/><div className="travel-hill hill-1"/><div className="travel-hill hill-2"/><div className="travel-path"/><div className="visual-caption">LOGIC / ALGORITHMS</div></>}
     <span className="visual-number">{project.number}</span>
   </div>;
 }
@@ -95,24 +95,24 @@ function ProjectVisual({ project }) {
 function ProjectModal({ project, onClose }) {
   useEffect(() => { if (!project) return; const old = document.body.style.overflow; document.body.style.overflow = 'hidden'; const onKey = (e) => e.key === 'Escape' && onClose(); window.addEventListener('keydown', onKey); return () => { document.body.style.overflow = old; window.removeEventListener('keydown', onKey); }; }, [project, onClose]);
   if (!project) return null;
-  return <div className="modal-backdrop" role="presentation" onMouseDown={(e) => e.target === e.currentTarget && onClose()}><div className="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><button className="modal-close" onClick={onClose} aria-label="Close project details"><X /></button><div className="modal-kicker">PROJECT / {project.number}</div><h2 id="modal-title">{project.title}<span className="period">.</span></h2><p className="modal-type">{project.type}</p><p className="modal-detail">{project.detail}</p><div className="stack-list">{project.stack.map((tag) => <span key={tag}>{tag}</span>)}</div><div className="modal-actions">{project.repo ? <a className="button button-primary" href={project.repo} target="_blank" rel="noreferrer">View repository <Github size={16}/></a> : <span className="muted-note">Repository link not configured yet</span>}{project.demo && <a className="text-link" href={project.demo} target="_blank" rel="noreferrer">Live demo <ExternalLink size={14}/></a>}</div></div></div>;
+  return <div className="modal-backdrop" role="presentation" onMouseDown={(e) => e.target === e.currentTarget && onClose()}><div className="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><button className="modal-close" onClick={onClose} aria-label="Close details"><X /></button><div className="modal-kicker">KNOWLEDGE & INTEREST / {project.number}</div><h2 id="modal-title">{project.title}<span className="period">.</span></h2><p className="modal-type">{project.type}</p><p className="modal-detail">{project.detail}</p><div className="stack-list">{project.stack.map((tag) => <span key={tag}>{tag}</span>)}</div></div></div>;
 }
 
 function Work() {
-  const [filter, setFilter] = useState('All work');
+  const [filter, setFilter] = useState('All areas');
   const [selected, setSelected] = useState(null);
-  const filtered = useMemo(() => filter === 'All work' ? projects : projects.filter((p) => p.category === filter), [filter]);
+  const filtered = useMemo(() => filter === 'All areas' ? interests : interests.filter((p) => p.category === filter), [filter]);
   useEffect(() => {
     const nodes = document.querySelectorAll('.project-card.reveal');
     nodes.forEach((node) => node.classList.add('is-visible'));
   }, [filter]);
   return <section className="section work-section" id="work"><div className="section-inner">
-    <SectionHeading index="02" label="SELECTED WORK" title="Ideas, meet" accent="execution." />
-    <div className="work-intro reveal"><p>A few things I’ve explored, designed, or built.<br /><span>More experiments are always in progress.</span></p><div className="project-filters" role="group" aria-label="Filter projects">{filters.map((item) => <button key={item} className={filter === item ? 'filter-active' : ''} onClick={() => setFilter(item)}>{item}</button>)}</div></div>
-    <div className="project-grid">{filtered.map((project, index) => <article className={`project-card reveal ${index === 0 ? 'project-featured' : ''}`} key={project.id} style={{'--reveal-delay': `${index * 90}ms`}}>
-      <button className="project-card-button" onClick={() => setSelected(project)} aria-label={`Open details for ${project.title}`}><ProjectVisual project={project}/><div className="project-card-content"><div className="project-meta"><span>{project.type}</span><span>{project.number}</span></div><div className="project-title-row"><h3>{project.title}</h3><span className="round-arrow"><ArrowUpRight size={18}/></span></div><p>{project.description}</p><div className="project-tags">{project.stack.map((tag) => <span key={tag}>{tag}</span>)}</div></div></button>
+    <SectionHeading index="02" label="INTERESTS & KNOWLEDGE" title="What I know &" accent="explore." />
+    <div className="work-intro reveal"><p>Core domains, technologies, and concepts I have knowledge in and actively study.<br /><span>Click any area to view my technical stack and focus.</span></p><div className="project-filters" role="group" aria-label="Filter knowledge areas">{filters.map((item) => <button key={item} className={filter === item ? 'filter-active' : ''} onClick={() => setFilter(item)}>{item}</button>)}</div></div>
+    <div className="project-grid">{filtered.map((item, index) => <article className={`project-card reveal ${index === 0 ? 'project-featured' : ''}`} key={item.id} style={{'--reveal-delay': `${index * 90}ms`}}>
+      <button className="project-card-button" onClick={() => setSelected(item)} aria-label={`Open details for ${item.title}`}><ProjectVisual project={item}/><div className="project-card-content"><div className="project-meta"><span>{item.type}</span><span>{item.number}</span></div><div className="project-title-row"><h3>{item.title}</h3><span className="round-arrow"><ArrowUpRight size={18}/></span></div><p>{item.description}</p><div className="project-tags">{item.stack.map((tag) => <span key={tag}>{tag}</span>)}</div></div></button>
     </article>)}</div>
-    <div className="work-note reveal"><span className="note-star">✳</span><p>Every project is a chance to learn something new. The details and links here are editable in <code>src/data.js</code>.</p><a href={isConfigured(profile.github) ? `https://github.com/${profile.github}?tab=repositories` : '#github'}>{isConfigured(profile.github) ? 'Browse all repositories' : 'Explore GitHub'} <ArrowRight size={15}/></a></div>
+    <div className="work-note reveal"><span className="note-star">✳</span><p><strong>Selected Projects:</strong> Currently kept empty while new builds are in progress ({projects.length} listed). Meanwhile, explore my code and learning repositories on GitHub.</p><a href={isConfigured(profile.github) ? `https://github.com/${profile.github}?tab=repositories` : '#github'}>{isConfigured(profile.github) ? 'Explore GitHub' : 'Explore GitHub'} <ArrowRight size={15}/></a></div>
     <ProjectModal project={selected} onClose={() => setSelected(null)} />
   </div></section>;
 }
