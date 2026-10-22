@@ -190,11 +190,12 @@ function Work() {
           const isSelected = node.id === activeNode.id;
           const isConnected = (activeNode.connections || []).includes(node.id);
           const isFilteredOut = filter !== 'All areas' && node.category !== filter;
+          const alignLeft = node.x > 62;
           return (
             <button
               key={node.id}
               type="button"
-              className={`constellation-node ${isSelected ? 'is-selected' : ''} ${isConnected ? 'is-connected' : ''} ${isFilteredOut ? 'is-dimmed' : ''}`}
+              className={`constellation-node ${alignLeft ? 'node-align-left' : ''} ${isSelected ? 'is-selected' : ''} ${isConnected ? 'is-connected' : ''} ${isFilteredOut ? 'is-dimmed' : ''}`}
               style={{ left: `${node.x}%`, top: `${node.y}%` }}
               onClick={() => setActiveId(node.id)}
               aria-pressed={isSelected}
